@@ -1,6 +1,7 @@
 import getData
 import RefineData
 import NeuralNetwork
+import serverML
 
 # Importar datos desde el sitio web
 # getData.datos_climaticos()
@@ -10,8 +11,11 @@ import NeuralNetwork
 
 # Entrenamiento de la red neuronal
 # NeuralNetwork.training(model_name='model_extra.pth')
-NeuralNetwork.print_plots()
-NeuralNetwork.predict()
+# NeuralNetwork.print_plots()
+# NeuralNetwork.predict()
 
 # Evaluar datos nuevos
 print(NeuralNetwork.eval_data([8, 30.5, 0], rounded=True))
+
+# Servidor de Machine Learning
+serverML.consulta()
