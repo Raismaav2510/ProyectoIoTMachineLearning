@@ -2,6 +2,9 @@ import getData
 import RefineData
 import NeuralNetwork
 import serverML
+import time
+import serverML
+
 
 # Importar datos desde el sitio web
 # getData.datos_climaticos()
@@ -15,7 +18,9 @@ import serverML
 # NeuralNetwork.predict()
 
 # Evaluar datos nuevos
-print(NeuralNetwork.eval_data([8, 30.5, 0], rounded=True))
+# print(NeuralNetwork.eval_data([8, 30.5, 0], rounded=True))
 
-# Servidor de Machine Learning
-serverML.consulta()
+while True:
+    # Ejecutar tareas pendientes
+    serverML.consulta()
+    time.sleep(60)

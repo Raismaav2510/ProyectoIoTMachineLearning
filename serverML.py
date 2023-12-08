@@ -1,6 +1,8 @@
 import mysql.connector
 import NeuralNetwork
 from datetime import datetime
+import requests
+
 
 # Establecer la conexión con la base de datos
 conection = mysql.connector.connect(
@@ -17,7 +19,6 @@ def consulta():
 
     # Obtener la fecha actual
     date_py = datetime.now().strftime('%Y-%m-%d')
-    date_py = '2023-12-01'
     # Ejecutar una consulta para obtener los últimos datos de la base de datos
     query = f"SELECT humidityAir, temperature, date FROM information WHERE date = '{date_py}' ORDER BY datahour DESC LIMIT 1"
     cursor.execute(query)
@@ -26,8 +27,8 @@ def consulta():
     result = cursor.fetchall()
 
     # Cerrar la conexión y el cursor
-    cursor.close()
-    conection.close()
+    # cursor.close()
+    # conection.close()
 
     # Hacer algo con los datos obtenidos
     if result is not None:
@@ -43,3 +44,14 @@ def consulta():
         prediction = NeuralNetwork.eval_data(data, rounded=True)
         print(prediction)
 
+        # Definir la URL a la que quieres enviar los datos
+        url = "http://localhost/iot/iotDevicesAPI/iotMLPredictions.php"
+
+        # Definir los parámetros GET
+        params = {"prediction": prediction}
+
+        # Enviar la solicitud GET
+        response = requests.post(url, params=params)
+
+        # Imprimir la respuesta del servidor
+        print(response.text)
